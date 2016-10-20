@@ -43,6 +43,8 @@ public class VncThumbnailViewer extends Frame
     String h = new String("");
     String pw = new String("");
     String us = new String("");
+    String hf = new String("");
+    String hfe = new String("");
     int p = 0;
 
     for(int i = 0; i < argv.length; i += 2) {
@@ -67,12 +69,19 @@ public class VncThumbnailViewer extends Frame
       if(param.equalsIgnoreCase("encpassword")) {
         pw = AddHostDialog.readEncPassword(value);
       }
+      if(param.equalsIgnoreCase("hostfile")) {
+        hf = value;
+      }
+      if(param.equalsIgnoreCase("enchostfile")) {
+        hfe = value;
+      }
 
       if(i+2 >= argv.length || argv[i+2].equalsIgnoreCase("host")) {
         //if this is the last parameter, or if the next parameter is a next host...
         if(h != "" && p != 0) {
           System.out.println("Command-line: host " + h + " port " + p);
           t.launchViewer(h, p, pw, us);
+
           h = "";
           p = 0;
           pw = "";
@@ -81,11 +90,23 @@ public class VncThumbnailViewer extends Frame
           System.out.println("ERROR: No port specified for last host (" + h + ")");
         }
       }
+      if(0 < hfe.length())
+      {
+        HostsFilePasswordDialog pd = new HostsFilePasswordDialog(t, false);
+        t.viewersList.loadHosts(hfe, pd.getPassword());
+        hfe = "";
+      }
+      else if(0 < hf.length())
+      {
+        t.viewersList.loadHosts(hf, "");
+        hf = "";
+      }
     }
-
   }
 
-  final static float VERSION = 1.4f;
+  //FUCKING VERSION IS A FLOAT? THE FUCK IS WRONG WITH SOME PEOPLE?
+  final static float VERPSILON = 0.01f;
+  final static float VERSION = 1.4f + VERPSILON;
 
   VncViewersList viewersList;
   AddHostDialog hostDialog;

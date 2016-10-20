@@ -17,9 +17,7 @@ default : $(BINDIR)/$(JARNAME)
 clean :
 	rm -fr $(OUTDIR)
 
-$(OUTDIR)/%.class : $(SRCDIR)/%.java
-
-$(CLASSES) :
+$(CLASSES) : $(SRCS) Makefile
 	@mkdir -p $(dir $@)
 	$(JAVAC) -d $(dir $@) $(CP) $(SRCS)
 
