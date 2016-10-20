@@ -67,7 +67,7 @@ public class VncThumbnailViewer extends Frame
       if(param.equalsIgnoreCase("encpassword")) {
         pw = AddHostDialog.readEncPassword(value);
       }
-      
+
       if(i+2 >= argv.length || argv[i+2].equalsIgnoreCase("host")) {
         //if this is the last parameter, or if the next parameter is a next host...
         if(h != "" && p != 0) {
@@ -82,11 +82,11 @@ public class VncThumbnailViewer extends Frame
         }
       }
     }
-    
+
   }
-  
+
   final static float VERSION = 1.4f;
-  
+
   VncViewersList viewersList;
   AddHostDialog hostDialog;
   MenuItem newhostMenuItem, loadhostsMenuItem, savehostsMenuItem, exitMenuItem;
@@ -111,7 +111,7 @@ public class VncThumbnailViewer extends Frame
     setMenuBar(new MenuBar());
     getMenuBar().add( createFileMenu() );
     setVisible(true);
-    
+
     soloViewer = new Frame();
     soloViewer.setSize(GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getSize());
     soloViewer.addWindowListener(this);
@@ -217,7 +217,7 @@ public class VncThumbnailViewer extends Frame
   void resizeThumbnails() {
     int newWidth = getWidthNoInsets(this) / thumbnailRowCount;
     int newHeight = getHeightNoInsets(this) / thumbnailRowCount;
- 
+
 
     if(newWidth != widthPerThumbnail || newHeight != heightPerThumbnail) {
       widthPerThumbnail = newWidth;
@@ -237,7 +237,7 @@ public class VncThumbnailViewer extends Frame
     }
 
   }
-  
+
   private void loadsaveHosts(int mode) {
     FileDialog fd = new FileDialog(this, "Load hosts file...", mode);
     if(mode == FileDialog.SAVE) {
@@ -248,7 +248,7 @@ public class VncThumbnailViewer extends Frame
     String file = fd.getFile();
     if(file != null) {
       String dir = fd.getDirectory();
-      
+
       if(mode == FileDialog.SAVE) {
         //ask about encrypting
         HostsFilePasswordDialog pd = new HostsFilePasswordDialog(this, true);
@@ -267,7 +267,7 @@ public class VncThumbnailViewer extends Frame
       }
     }
   }
-  
+
   private void quit() {
     // Called by either File->Exit or Closing of the main window
     System.out.println("Closing window");
@@ -307,17 +307,17 @@ public class VncThumbnailViewer extends Frame
     loadhostsMenuItem.addActionListener(this);
     savehostsMenuItem.addActionListener(this);
     exitMenuItem.addActionListener(this);
-    
+
     fileMenu.add(newhostMenuItem);
     fileMenu.addSeparator();
     fileMenu.add(loadhostsMenuItem);
     fileMenu.add(savehostsMenuItem);
     fileMenu.addSeparator();
     fileMenu.add(exitMenuItem);
-    
+
     loadhostsMenuItem.enable(true);
     savehostsMenuItem.enable(true);
-        
+
     return fileMenu;
   }
 
@@ -399,10 +399,10 @@ public class VncThumbnailViewer extends Frame
     }
 
   }
-  
+
   public void componentRemoved(ContainerEvent evt) {}
-  
-  
+
+
   // Action Listener Event:
   public void actionPerformed(ActionEvent evt) {
     if( evt.getSource() instanceof Button && ((Button)evt.getSource()).getLabel() == "Hide desktop") {
@@ -424,5 +424,4 @@ public class VncThumbnailViewer extends Frame
     }
 
   }
-  
 }
